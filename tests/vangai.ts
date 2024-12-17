@@ -24,6 +24,22 @@ describe("vangai", () => {
   const tokenAccount = Keypair.generate();
 
   before("Initializes the state", async () => {
+
+    const lamportsToVangaiOwner = 1 * LAMPORTS_PER_SOL;
+    {
+      let airdropSignature = await provider.connection.requestAirdrop(vangaiOwner.publicKey, lamportsToVangaiOwner);
+      const latestBlockHash = await provider.connection.getLatestBlockhash();
+
+      await provider.connection.confirmTransaction({
+        blockhash: latestBlockHash.blockhash,
+        lastValidBlockHeight: latestBlockHash.lastValidBlockHeight,
+        signature: airdropSignature,
+      });
+    }
+
+    let balanceBefore = await provider.connection.getBalance(vangaiOwner.publicKey);
+    // console.log("Balance before: ", balanceBefore)
+
     await program.methods
       .initialize(
         vangaiOwner.publicKey,
@@ -32,12 +48,15 @@ describe("vangai", () => {
       )
       .accounts({
         state: state.publicKey,
-        payer: provider.wallet.publicKey,
+        payer: vangaiOwner.publicKey,
         systemProgram: SystemProgram.programId,
       })
-      .signers([state])
+      .signers([state, vangaiOwner])
       .rpc();
 
+    let balanceAfter = await provider.connection.getBalance(vangaiOwner.publicKey);
+    // console.log("Balance after: ", balanceAfter)
+    
     const stateAccount = await program.account.state.fetch(state.publicKey);
     const targetVangaiOwnerShareNumerator = new anchor.BN(45_00)
     const targetCabinaiWalletShareNumerator = new anchor.BN(45_00)
@@ -53,7 +72,7 @@ describe("vangai", () => {
   });
 
   it("Mint!", async () => {
-    const lamportsToMinter = 10 * LAMPORTS_PER_SOL; // Сумма средств для распределения
+    const lamportsToMinter = 10 * LAMPORTS_PER_SOL;
     {
       let airdropSignature = await provider.connection.requestAirdrop(minter.publicKey, lamportsToMinter);
       const latestBlockHash = await provider.connection.getLatestBlockhash();
