@@ -6,7 +6,7 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-vangai = "Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEFCYkgztV4Nrk1Rx"
+vangai = "9hUyPGeYFxdfrp5XmrkaVoEbB1V8hjuigXdUAM7LQTXi"
 
 [registry]
 url = "https://api.apr.dev"
