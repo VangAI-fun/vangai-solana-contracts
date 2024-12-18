@@ -79,7 +79,12 @@ solana address -k target/deploy/vangai-keypair.json
 anchor build
 ```
 
-7. Run deployment script
+7. Run deploy
 ```
-anchor deploy
+solana program deploy target/deploy/vangai.so --url https://api.mainnet-beta.solana.com --keypair accounts/vangai-owner.json --program-id target/deploy/vangai-keypair.json
+```
+
+8. Initialize program
+```
+yarn run initialize
 ```
