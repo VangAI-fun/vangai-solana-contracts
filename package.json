@@ -2,12 +2,17 @@
   "license": "ISC",
   "scripts": {
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",
-    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check"
+    "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
+    "initialize": "yarn run ts-node migrations/initialize.ts",
+    "readState": "yarn run ts-node migrations/readState.ts",
+    "setCabinaWallet": "yarn run ts-node migrations/setCabinaWallet.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
     "@solana/spl-token": "^0.4.0",
-    "borsh": "^2.0.0"
+    "@types/node": "^22.10.2",
+    "borsh": "^2.0.0",
+    "dotenv": "^16.4.7"
   },
   "devDependencies": {
     "@types/bn.js": "^5.1.0",
