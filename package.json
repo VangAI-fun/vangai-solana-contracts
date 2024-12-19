@@ -5,7 +5,8 @@
     "lint": "prettier */*.js \"*/**/*{.js,.ts}\" --check",
     "initialize": "yarn run ts-node migrations/initialize.ts",
     "readState": "yarn run ts-node migrations/readState.ts",
-    "setCabinaWallet": "yarn run ts-node migrations/setCabinaWallet.ts"
+    "setCabinaWallet": "yarn run ts-node migrations/setCabinaWallet.ts",
+    "mint": "yarn run ts-node migrations/mint.ts"
   },
   "dependencies": {
     "@coral-xyz/anchor": "^0.29.0",
